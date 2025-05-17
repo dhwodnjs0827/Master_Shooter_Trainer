@@ -1,5 +1,6 @@
 using UnityEngine;
 
+[RequireComponent(typeof(CharacterController), typeof(PlayerInputs))]
 public class PlayerController : MonoBehaviour
 {
     private float verticalVelocity;

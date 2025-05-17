@@ -1,7 +1,6 @@
 using Cinemachine;
 using UnityEngine;
 
-[RequireComponent(typeof(Animator))]
 [RequireComponent(typeof(PlayerController))]
 public class Player : MonoBehaviour
 {
@@ -81,7 +80,7 @@ public class Player : MonoBehaviour
         stateMachine = new PlayerStateMachine(this);
         AnimationData = new PlayerAnimationData();
 
-        Animator = GetComponent<Animator>();
+        Animator = GetComponentInChildren<Animator>();
 
         Controller = GetComponent<PlayerController>();
         Motion = GetComponent<PlayerMotion>();
