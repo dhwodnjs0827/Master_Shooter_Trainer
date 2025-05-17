@@ -9,9 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 0}
+  m_Script: {fileID: 11500000, guid: bee473cda35273449a80b7908a58d885, type: 3}
   m_Name: Headshot Ratio
-  m_EditorClassIdentifier: Assembly-CSharp::AchievementSO
+  m_EditorClassIdentifier: 
   id: 4
   title: "\uC5D0\uC784\uD575"
   description: "\uD5E4\uB4DC\uC0F7 \uBA85\uC911\uB960\uC744 80\uD37C\uC13C\uD2B8\uB97C
