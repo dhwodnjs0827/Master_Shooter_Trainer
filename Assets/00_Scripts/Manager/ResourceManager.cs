@@ -1,8 +1,53 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.AddressableAssets;
+
+public class AddressableCatalog
+{
+    public string Key;
+    public string Type;
+    public string Address;
+}
 
 public sealed class ResourceManager : SingletonBehaviour<ResourceManager>
 {
+    private Dictionary<string, Object> resourcesDict;
+
+    protected override void Awake()
+    {
+        base.Awake();
+        Init();
+    }
+
+    private void Init()
+    {
+        var init = Addressables.InitializeAsync();
+        init.Completed += (handler) =>
+        {
+            Debug.Log("초기화 완료");
+        };
+
+        var asyncOperationHandle = Addressables.DownloadDependenciesAsync("InitDownload");
+        asyncOperationHandle.Completed += (op) =>
+        {
+            Debug.Log("다운로드 완료");
+        };
+    }
+    
+    public T LoadAsset<T>(string address) where T : Object
+    {
+        var operationHandle = Addressables.LoadAssetAsync<T>(address);
+        
+        return null;
+    }
+
+    public T LoadAssets<T>(string label) where T : Object
+    {
+        return null;
+    }
+
+    #region Resources
+
     private readonly Dictionary<string, object> resourcePools = new(); // 리소스 캐싱용
 
     /// <summary>
@@ -44,4 +89,6 @@ public sealed class ResourceManager : SingletonBehaviour<ResourceManager>
 
         return resource;
     }
+
+    #endregion
 }
