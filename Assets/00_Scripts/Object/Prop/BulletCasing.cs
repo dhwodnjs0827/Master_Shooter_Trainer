@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-public class ShellCasing : MonoBehaviour
+public class BulletCasing : MonoBehaviour
 {
     private Rigidbody rb;
     

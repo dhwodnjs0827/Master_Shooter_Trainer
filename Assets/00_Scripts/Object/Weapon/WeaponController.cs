@@ -120,7 +120,7 @@ public class WeaponController : MonoBehaviour
                 6f
             );
             
-            ShellCasing sc = casing.GetComponent<ShellCasing>();
+            BulletCasing sc = casing.GetComponent<BulletCasing>();
 
             if (sc != null)
             {
