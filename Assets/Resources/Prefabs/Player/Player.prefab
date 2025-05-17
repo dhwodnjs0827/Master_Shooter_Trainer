@@ -1683,6 +1683,7 @@ GameObject:
   - component: {fileID: 7568795330903200216}
   - component: {fileID: 7531463652356179650}
   - component: {fileID: 5864949347750638179}
+  - component: {fileID: -692671494797591498}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -1809,6 +1810,20 @@ MonoBehaviour:
   <ArmTransform>k__BackingField: {fileID: 3246585259223728764}
   <HandPos>k__BackingField: {fileID: 6656732244684106961}
   finalRecoil: 0
+--- !u!114 &-692671494797591498
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5410832368458234598}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4bb1d82c0331b496d970fdabd665821d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  detectRange: 100
+  checkInterval: 0.5
 --- !u!1 &5462659561563031153
 GameObject:
   m_ObjectHideFlags: 0

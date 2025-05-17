@@ -77,9 +77,6 @@ AnimatorTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Sit
     m_EventTreshold: 0
-  - m_ConditionMode: 3
-    m_ConditionEvent: SitIndex
-    m_EventTreshold: 1
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -4302864522434373713}
   m_Solo: 0
@@ -124,9 +121,6 @@ AnimatorTransition:
   m_Conditions:
   - m_ConditionMode: 1
     m_ConditionEvent: Sit
-    m_EventTreshold: 0
-  - m_ConditionMode: 3
-    m_ConditionEvent: SitIndex
     m_EventTreshold: 0
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: 3679102980209602774}
@@ -197,9 +191,6 @@ AnimatorTransition:
   - m_ConditionMode: 1
     m_ConditionEvent: Sit
     m_EventTreshold: 0
-  - m_ConditionMode: 3
-    m_ConditionEvent: SitIndex
-    m_EventTreshold: 2
   m_DstStateMachine: {fileID: 0}
   m_DstState: {fileID: -7464699384458476139}
   m_Solo: 0
