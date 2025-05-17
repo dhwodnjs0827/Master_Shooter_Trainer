@@ -26,8 +26,3 @@ public enum AchievementType
     HiddenAction, // 숨겨진 행동 감지
     FastTargetKill // 일정 시간 내 표적 처치
 }
-
-public class AchievementListSO : ScriptableObject
-{
-    public List<AchievementSO> achievements;
-}

@@ -16,6 +16,7 @@ public sealed class ResourceManager : SingletonBehaviour<ResourceManager>
     protected override void Awake()
     {
         base.Awake();
+        AddressableUtility.AddressMapping();
         Init();
     }
 
