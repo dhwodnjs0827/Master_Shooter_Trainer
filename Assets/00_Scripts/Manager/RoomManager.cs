@@ -32,7 +32,8 @@ public class RoomManager : SingletonBehaviour<RoomManager>
 
     public void InitRoom()
     {
-        var startRoom = ResourceManager.Instance.Load<StartRoom>("Prefabs/Stage/Room/StartRoom");
+        //var startRoom = ResourceManager.Instance.Load<StartRoom>("Prefabs/Stage/Room/StartRoom");
+        var startRoom = ResourceManager.Instance.LoadAsset<StartRoom>("Prefabs/Stage/Room/StartRoom.prefab");
         CurRoom = Instantiate(startRoom);
     }
 
@@ -104,11 +105,13 @@ public class RoomManager : SingletonBehaviour<RoomManager>
 
     private void InitRoomPrefabs()
     {
-        var standbyRoomPrefab = ResourceManager.Instance.Load<StandbyRoom>("Prefabs/Stage/Room/StandbyRoom");
+        //var standbyRoomPrefab = ResourceManager.Instance.Load<StandbyRoom>("Prefabs/Stage/Room/StandbyRoom");
+        var standbyRoomPrefab = ResourceManager.Instance.LoadAsset<StandbyRoom>("Prefabs/Stage/Room/StandbyRoom.prefab");
         standbyRoom = Instantiate(standbyRoomPrefab);
         standbyRoom.gameObject.SetActive(false);
 
-        var roomPrefabs = ResourceManager.Instance.LoadAll<ShootingRoom>("Prefabs/Stage/Room");
+        //var roomPrefabs = ResourceManager.Instance.LoadAll<ShootingRoom>("Prefabs/Stage/Room");
+        var roomPrefabs = ResourceManager.Instance.LoadAssets<ShootingRoom>("Room");
         shootingRoomDict = new Dictionary<string, ShootingRoom>();
         foreach (var room in roomPrefabs)
         {

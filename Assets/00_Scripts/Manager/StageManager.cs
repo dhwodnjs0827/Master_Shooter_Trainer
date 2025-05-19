@@ -93,7 +93,8 @@ public class StageManager : SingletonBehaviour<StageManager>
     /// </summary>
     public void SpawnPlayer()
     {
-        var resource = ResourceManager.Instance.Load<Player>("Prefabs/Player/Player");
+        //var resource = ResourceManager.Instance.Load<Player>("Prefabs/Player/Player");
+        var resource = ResourceManager.Instance.LoadAsset<Player>("Prefabs/Player/Player.prefab");
         Player = Instantiate(resource, new Vector3(0, 1, 3), Quaternion.identity);
     }
 }

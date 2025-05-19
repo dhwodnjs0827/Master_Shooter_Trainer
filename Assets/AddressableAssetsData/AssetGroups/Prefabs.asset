@@ -17,11 +17,36 @@ MonoBehaviour:
     m_SerializedData: []
   m_GUID: d527d6a924d8d48179602f1d8738781b
   m_SerializeEntries:
-  - m_GUID: e3464fdcfa96fbb49ac19435f1d1543b
-    m_Address: Prefabs
+  - m_GUID: 9460a1f099487491496b7c3d58e77521
+    m_Address: Target
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d72b8e3c55e86f746a7730e5f5ed04f4
+    m_Address: Weapon
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: d2ef9367e9e1f854181fac73d408123f
+    m_Address: Character
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: 5399e03a996f44e47bae6679103cda54
+    m_Address: FX
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: faf7353a49050624888d66523bd8e7a5
+    m_Address: Props
+    m_ReadOnly: 0
+    m_SerializedLabels: []
+    FlaggedDuringContentUpdateRestriction: 0
+  - m_GUID: a5d86037c3443431cbd185d52ea27c31
+    m_Address: Room
     m_ReadOnly: 0
     m_SerializedLabels:
-    - InitDownload
+    - Room
     FlaggedDuringContentUpdateRestriction: 0
   m_ReadOnly: 0
   m_Settings: {fileID: 11400000, guid: 2060b9ba1b8f44d02985f1c0cebf7b70, type: 2}

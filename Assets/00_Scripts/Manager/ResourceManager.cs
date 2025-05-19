@@ -1,6 +1,9 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 using UnityEngine.AddressableAssets;
+using Object = UnityEngine.Object;
 
 public class AddressableCatalog
 {
@@ -11,11 +14,12 @@ public class AddressableCatalog
 
 public sealed class ResourceManager : SingletonBehaviour<ResourceManager>
 {
-    private Dictionary<string, Object> resourcesDict;
+    private Dictionary<string, Object> resourcePool;
 
     protected override void Awake()
     {
         base.Awake();
+        resourcePool = new Dictionary<string, Object>();
         AddressableUtility.AddressMapping();
         Init();
     }
@@ -37,14 +41,68 @@ public sealed class ResourceManager : SingletonBehaviour<ResourceManager>
     
     public T LoadAsset<T>(string address) where T : Object
     {
-        var operationHandle = Addressables.LoadAssetAsync<T>(address);
-        
+        if (resourcePool.TryGetValue(address, out var obj))
+        {
+            return (T)obj;
+        }
+        else
+        {
+            var asset = GetAsset<T>(address);
+            if (asset != null)
+            {
+                resourcePool.Add(address, asset);
+            }
+            return asset;
+        }
+    }
+
+    public List<T> LoadAssets<T>(string label) where T : Object
+    {
+        List<T> retList = new List<T>();
+        var keys = resourcePool.Keys.ToList().FindAll(obj => obj.Contains(label));
+        if(keys.Count > 0)
+        {
+            foreach(var newKey in keys)
+            {
+                retList.Add((T)resourcePool[newKey]);
+            }
+        }
+        else
+        {
+            retList = GetAssets<T>(label);
+        }
+        return retList;
+    }
+
+    private T GetAsset<T>(string address) where T : Object
+    {
+        var path = address;
+        try
+        {
+            if (typeof(T).IsSubclassOf(typeof(MonoBehaviour)))
+            {
+                var obj = Addressables.LoadAssetAsync<GameObject>(path).WaitForCompletion();
+                return obj.GetComponent<T>();
+            }
+            else
+            {
+                return Addressables.LoadAssetAsync<T>(path).WaitForCompletion();
+            }
+        }
+        catch (Exception e)
+        {
+            Debug.LogError(e.Message);
+        }
         return null;
     }
 
-    public T LoadAssets<T>(string label) where T : Object
+    private List<T> GetAssets<T>(string label) where T : Object
     {
-        return null;
+        var list = Addressables.LoadAssetsAsync<T>(label, (obj) => {
+            Debug.Log(obj.ToString());
+        }).WaitForCompletion();
+        List<T> assets = list != null ? new List<T>(list) : new List<T>(); 
+        return assets;
     }
 
     #region Resources

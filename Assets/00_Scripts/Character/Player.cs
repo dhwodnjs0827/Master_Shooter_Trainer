@@ -113,7 +113,8 @@ public class Player : MonoBehaviour
             weaponPos = transform.FindDeepChildByName("WeaponPos");
         }
 
-        var resource = ResourceManager.Instance.Load<Weapon>($"Prefabs/Weapon/{weaponID}");
+        //var resource = ResourceManager.Instance.Load<Weapon>($"Prefabs/Weapon/{weaponID}");
+        var resource = ResourceManager.Instance.LoadAsset<Weapon>($"$Prefabs/Weapon/{weaponID}.prefab");
         Weapon = Instantiate(resource, weaponPos); // 프리팹 원본 transform 유지
     }
 
