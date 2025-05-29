@@ -27,6 +27,7 @@ public class HUDUI : MainUI
     [SerializeField] private TextMeshProUGUI rclText;
     [SerializeField] private Image stpGauge;
     [SerializeField] private TextMeshProUGUI stpText;
+    private Sprite image;
 
 
     #endregion
@@ -42,6 +43,8 @@ public class HUDUI : MainUI
 
         originalColor = new Color32(221, 234, 249, 255);
         currentColor = new Color32(252, 192, 1, 255);
+        var weapon = GameManager.Instance.selectedWeapon;
+        image = ResourceManager.Instance.Load<Sprite>($"Sprites/{weapon.ID}");
     }
 
     private void Start()
@@ -50,8 +53,6 @@ public class HUDUI : MainUI
         UpdateStageInfo();
         UpdateStatValue();
 
-        var weapon = GameManager.Instance.selectedWeapon;
-        var image = ResourceManager.Instance.Load<Sprite>($"Sprites/{weapon.ID}");
         SetEquipImage(image);
     }
 
@@ -150,5 +151,6 @@ public class HUDUI : MainUI
     public void SetEquipImage(Sprite weaponImage)
     {
         equipImage.sprite = weaponImage;
+        Debug.Log($"{weaponImage.name}");
     }
 }
