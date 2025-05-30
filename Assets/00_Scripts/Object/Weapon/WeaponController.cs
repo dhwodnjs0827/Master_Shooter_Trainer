@@ -54,6 +54,7 @@ public class WeaponController : MonoBehaviour
             else if (curAmmo == 1)
             {
                 weapon.Anim.SetBool("OutOfAmmo", true);
+                InteractManager.Instance.SpawnReloadItem();
             }
             else
             {
@@ -84,7 +85,7 @@ public class WeaponController : MonoBehaviour
 
         shootDirection = barrelLocation.forward;
 
-        Vector3 loweredPosition = barrelLocation.position + Vector3.down * 0.1f;
+        Vector3 loweredPosition = barrelLocation.position;
         Ray ray = new Ray(loweredPosition, shootDirection);
         Debug.DrawRay(loweredPosition, shootDirection * 100f, Color.red,30f ); 
         if (Physics.Raycast(ray, out RaycastHit hit))
@@ -96,6 +97,9 @@ public class WeaponController : MonoBehaviour
                 GameObject impact = ObjectPoolManager.Instance.GetObject(bulletImpactPrefab, hit.point, hitRotation, 5f);
                 impact.transform.SetParent(hit.collider.transform);
 
+                Vector3 inverseScale = new Vector3(1f / impact.transform.parent.lossyScale.x, 1f / impact.transform.parent.lossyScale.y, 1f / impact.transform.parent.lossyScale.z);
+
+                impact.transform.localScale = Vector3.Scale(Vector3.one, inverseScale);
                 // AutoReturn 처리
                 //ObjectPoolManager.Instance.AutoReturnToPool(impact, 5f);  // 5초 후 반환
             }
@@ -160,6 +164,7 @@ public class WeaponController : MonoBehaviour
             return;
         }
 
+        InteractManager.Instance.CloseReloadItem();
         curAmmo = 0;
         weapon.Anim.SetTrigger("Reload");
 

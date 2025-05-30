@@ -28,9 +28,10 @@ public class StageScene : BaseScene
         SoundManager.Instance.PlayBackgroundMusic(bgm);
         yield return null;
     }
-    
+
     public override void ExitScene()
     {
         base.ExitScene();
+        UIManager.ToggleMouseCursor(true);
     }
 }

@@ -29,6 +29,7 @@ public sealed class SceneLoadManager : SingletonBehaviour<SceneLoadManager>
     public void LoadScene(Scene scene)
     {
         NextScene = scene;
+        Debug.Log("씬로드매니저");
         //SceneManager.LoadScene((int)Scene.Loading);
         StartCoroutine(CoroutineLoadScene(scene));
     }
@@ -40,25 +41,48 @@ public sealed class SceneLoadManager : SingletonBehaviour<SceneLoadManager>
         yield return UIManager.Instance.FadeEffect(1, 0, 0.5f);
 
         var op = SceneManager.LoadSceneAsync((int)nextScene);
-        op.allowSceneActivation = false;
-        
-        while (!op.isDone)
+        if (op == null)
         {
-            yield return null;
-            OnLoadProgress?.Invoke(op.progress);
+            Debug.LogError($"[SceneLoadManager] LoadSceneAsync 실패: {nextScene} 씬을 찾을 수 없습니다. Build Settings에 추가됐는지 확인하세요.");
+            yield break;
+        }
 
-            if (op.progress < 0.9f)
+
+        op.allowSceneActivation = false;
+
+        float displyProgress = 0f;
+        
+        while (displyProgress < 1f)
+        {
+            
+            float targetProgress = Mathf.Clamp01(op.progress / 0.9f);
+
+            if (displyProgress < targetProgress)
             {
-                
+                displyProgress += Time.deltaTime * 0.5f;
             }
-            else
+
+            else if (op.progress >= 0.9f)
             {
+                displyProgress += Time.deltaTime * 0.5f;
+            }
+
+            displyProgress = Mathf.Clamp01(displyProgress);
+
+            OnLoadProgress?.Invoke(displyProgress);
+
+            yield return null;
+
+           
+            if(displyProgress >= 1f && op.progress >= 0.9f)
+            {
+                yield return new WaitForSeconds(0.5f);
                 op.allowSceneActivation = true;
 
                 PrevScene = CurScene;
                 CurScene = nextScene;
 
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(0.5f);
                 yield return UIManager.Instance.FadeEffect(0, 1, 0.5f);
                 scenes[PrevScene].ExitScene();
                 scenes[CurScene].EnterScene();

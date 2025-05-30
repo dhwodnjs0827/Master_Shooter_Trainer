@@ -10,7 +10,7 @@ public class PopupReward : PopupUI
     private List<ItemSO> itemRewardPool;   // 모든 아이템 SO
     
     [SerializeField] private Image playerImage;
-    private Sprite[] playerSprite;
+    private Sprite playerSprite;
     [SerializeField] private RewardItemCard[] rewardCards;
     [SerializeField] private Button cancelBuyBtn;
     
@@ -19,7 +19,7 @@ public class PopupReward : PopupUI
     private void Awake()
     {
         itemRewardPool = ResourceManager.Instance.LoadAll<ItemSO>("Data/SO/ItemSO").ToList();
-        playerSprite = ResourceManager.Instance.LoadAll<Sprite>($"Sprites/{GameManager.Instance.selectedCharacter.ID}");
+        playerSprite = ResourceManager.Instance.Load<Sprite>($"Sprites/{GameManager.Instance.selectedCharacter.ID}");
 
         for (var i = 0; i < rewardCards.Length; i++)
         {
@@ -40,7 +40,7 @@ public class PopupReward : PopupUI
     /// </summary>
     private void InitReward()
     {
-        playerImage.sprite = playerSprite[0];
+        playerImage.sprite = playerSprite;
 
         var showItemData = GetRandomItemReward();
         

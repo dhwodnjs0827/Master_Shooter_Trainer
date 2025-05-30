@@ -16,7 +16,7 @@ public class CoroutineRunner : SingletonBehaviour<CoroutineRunner>
 
     public static void Stop(IEnumerator coroutine)
     {
-        Instance.StartCoroutine(coroutine);
+        Instance.StopCoroutine(coroutine);
     }
     
     public static void StopAll()

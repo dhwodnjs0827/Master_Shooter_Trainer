@@ -19,6 +19,8 @@ public abstract class BaseTarget : MonoBehaviour, IPoolable
 
     [SerializeField] private Transform visual;
 
+    public event System.Action<BaseTarget> OnTargetDisabled;
+
 
 
     protected virtual void Start()
@@ -28,6 +30,15 @@ public abstract class BaseTarget : MonoBehaviour, IPoolable
             anim = GetComponent<Animator>() ?? GetComponentInChildren<Animator>();
         }
         InitData(data);
+    }
+
+    private void OnDisable()
+    {
+        if (!gameObject.scene.isLoaded)
+        {
+            return;
+        }
+        OnTargetDisabled?.Invoke(this);
     }
 
 
@@ -99,7 +110,7 @@ public abstract class BaseTarget : MonoBehaviour, IPoolable
             gameObject.SetActive(true);
             targetUI.SetActive(true);
         }
-        
+
         blip.SetActive(true);
     }
 
