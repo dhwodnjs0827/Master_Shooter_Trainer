@@ -314,7 +314,7 @@ public sealed class UIManager : SingletonBehaviour<UIManager>
     /// <summary>
     /// Popup Canvas 정리
     /// </summary>
-    private void ClearPopupCanvas()
+    public void ClearPopupCanvas()
     {
         curPopupUIStack.Clear();
         popupUIPool.Clear();

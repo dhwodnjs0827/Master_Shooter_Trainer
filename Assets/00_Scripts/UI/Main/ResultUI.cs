@@ -23,6 +23,8 @@ public class ResultUI : MainUI
 
     private void Awake()
     {
+        UIManager.Instance.ClearPopupCanvas();
+        
         UIType = MainUIType.Result;
 
         quitBtn.onClick.AddListener(OnClickQuitButton);
