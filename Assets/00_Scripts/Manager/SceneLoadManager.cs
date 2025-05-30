@@ -49,24 +49,40 @@ public sealed class SceneLoadManager : SingletonBehaviour<SceneLoadManager>
 
 
         op.allowSceneActivation = false;
-        
-        while (!op.isDone)
-        {
-            yield return null;
-            OnLoadProgress?.Invoke(op.progress);
 
-            if (op.progress < 0.9f)
+        float displyProgress = 0f;
+        
+        while (displyProgress < 1f)
+        {
+            
+            float targetProgress = Mathf.Clamp01(op.progress / 0.9f);
+
+            if (displyProgress < targetProgress)
             {
-                
+                displyProgress += Time.deltaTime * 0.5f;
             }
-            else
+
+            else if (op.progress >= 0.9f)
             {
+                displyProgress += Time.deltaTime * 0.5f;
+            }
+
+            displyProgress = Mathf.Clamp01(displyProgress);
+
+            OnLoadProgress?.Invoke(displyProgress);
+
+            yield return null;
+
+           
+            if(displyProgress >= 1f && op.progress >= 0.9f)
+            {
+                yield return new WaitForSeconds(0.5f);
                 op.allowSceneActivation = true;
 
                 PrevScene = CurScene;
                 CurScene = nextScene;
 
-                yield return new WaitForSeconds(1.5f);
+                yield return new WaitForSeconds(0.5f);
                 yield return UIManager.Instance.FadeEffect(0, 1, 0.5f);
                 scenes[PrevScene].ExitScene();
                 scenes[CurScene].EnterScene();
