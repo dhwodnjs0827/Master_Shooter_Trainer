@@ -18,6 +18,9 @@ public abstract class Room : MonoBehaviour
     protected virtual void OpenDoor()
     {
         RoomManager.Instance.PlaceNextRoom();
+        Debug.Log("문열기");
+        StageManager.Instance.IsStandByRoom = false;
+
     }
 
     protected virtual void EnterRoom()

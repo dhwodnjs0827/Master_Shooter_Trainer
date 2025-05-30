@@ -8,6 +8,7 @@ using UnityEngine;
 public class StageManager : SingletonBehaviour<StageManager>
 {
     public bool IsGamePause { get; set; }
+    public bool IsStandByRoom = true;
     private float remainTime;
     private float quickShotTimer;
     public Player Player { get; private set; }
