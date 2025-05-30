@@ -34,6 +34,10 @@ public abstract class BaseTarget : MonoBehaviour, IPoolable
 
     private void OnDisable()
     {
+        if (!gameObject.scene.isLoaded)
+        {
+            return;
+        }
         OnTargetDisabled?.Invoke(this);
     }
 
