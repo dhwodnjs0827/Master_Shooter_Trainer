@@ -7,7 +7,6 @@ public class InteractManager : SingletonBehaviour<InteractManager>
 {
     private PopupInteract interactPopup;
     private PopupInteract reloadPopup;
-    private RectTransform rect;
 
     public void SpawnInteractItem()
     {
@@ -17,12 +16,11 @@ public class InteractManager : SingletonBehaviour<InteractManager>
         }
         interactPopup.SetText("E", "문 열기");
 
-        rect = interactPopup.GetComponent<RectTransform>();
-         if (rect != null)
+        var rect = interactPopup.GetComponent<RectTransform>();
+        if (rect != null)
         {
-            rect.anchoredPosition = new Vector2(470f, -80f);
+            rect.anchoredPosition = new Vector2(-700f, 500f);
         }
-
     }
 
     public void SpawnReloadItem()
@@ -32,11 +30,10 @@ public class InteractManager : SingletonBehaviour<InteractManager>
             reloadPopup = UIManager.Instance.OpenPopUpUIMultiple<PopupInteract>();
         }
         reloadPopup.SetText("R", "재장전");
-        RectTransform rect = reloadPopup.GetComponent<RectTransform>();
+        var rect = reloadPopup.GetComponent<RectTransform>();
         if (rect != null)
         {
-            // 약간 오른쪽 아래로 이동
-            rect.anchoredPosition = new Vector2(713f, -280f);
+            rect.anchoredPosition = new Vector2(-249f, 257f);
         }
     }
 
@@ -49,6 +46,7 @@ public class InteractManager : SingletonBehaviour<InteractManager>
         }
     }
 
+
     public void CloseReloadItem()
     {
         if (reloadPopup != null)
@@ -56,5 +54,6 @@ public class InteractManager : SingletonBehaviour<InteractManager>
             UIManager.Instance.ClosePopUpUI(reloadPopup);
             reloadPopup = null;
         }
+        
     }
 }
