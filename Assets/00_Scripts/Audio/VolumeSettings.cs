@@ -5,9 +5,9 @@ public class VolumeSettings
     private AudioSource musicSource;
     private AudioSource sfxSource;
 
-    private float masterVolume = 1f;
-    private float sfxVolume = 1f;
-    private float musicVolume = 1f;
+    private float masterVolume = 0.5f;
+    private float sfxVolume= 0.5f;
+    private float musicVolume= 0.5f;
 
     public float MasterVolume => masterVolume;
     public float SFXVolume => sfxVolume;
@@ -21,9 +21,9 @@ public class VolumeSettings
 
     public void LoadVolumes()
     {
-        masterVolume = PlayerPrefs.GetFloat("MasterVol", 1);
-        sfxVolume = PlayerPrefs.GetFloat("SFXVol", 1);
-        musicVolume = PlayerPrefs.GetFloat("MusicVol", 1);
+        masterVolume = PlayerPrefs.GetFloat("MasterVol", 0.5f);
+        sfxVolume = PlayerPrefs.GetFloat("SFXVol", 0.5f);
+        musicVolume = PlayerPrefs.GetFloat("MusicVol", 0.5f);
         ApplyVolumes();
     }
 

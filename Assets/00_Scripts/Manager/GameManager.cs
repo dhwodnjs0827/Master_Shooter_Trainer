@@ -28,7 +28,10 @@ public sealed class GameManager : SingletonBehaviour<GameManager>
             isOption = false;
             UIManager.Instance.ClosePopUpUI();
 
-            StageManager.Instance.IsGamePause = false;
+            if (StageManager.Instance.IsStandByRoom == false)
+            {
+                StageManager.Instance.IsGamePause = false;
+            }
 
             if (controller != null)
             {

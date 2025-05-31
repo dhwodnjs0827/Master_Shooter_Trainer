@@ -9,7 +9,7 @@ public class StandbyRoom : Room
     protected override void Awake()
     {
         base.Awake();
-        isItemRewardComplete = false;
+        isItemRewardComplete = true;
         if (endPoint == null)
         {
             endPoint = transform.FindDeepChildByName("EndPoint");
@@ -24,14 +24,13 @@ public class StandbyRoom : Room
     protected override void OpenDoor()
     {
         base.OpenDoor();
-        
         StageManager.Instance.IsGamePause = false;
     }
 
     protected override void EnterRoom()
     {
         base.EnterRoom();
-        
+        StageManager.Instance.IsStandByRoom = true;
         StageManager.Instance.IsGamePause = true;
         StartCoroutine(OpenRewardUI(1f));
     }

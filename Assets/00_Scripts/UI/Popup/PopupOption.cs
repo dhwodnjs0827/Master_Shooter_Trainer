@@ -21,8 +21,8 @@ public class PopupOption : PopupUI
     // public float adsSensitivity = 1f;
 
     // 캐싱된 감도 값을 저장할 static 변수
-    [SerializeField] public static float cachedHipSensitivity = 1f;
-    public static float cachedAdsSensitivity = 1f;
+    [SerializeField] public static float cachedHipSensitivity = 4.5f;
+    public static float cachedAdsSensitivity = 2.5f;
 
     private const string HipSensitivityKey = "HipSensitivity";
     private const string AdsSensitivityKey = "ADSSensitivity";
@@ -50,7 +50,7 @@ public class PopupOption : PopupUI
         }
 
         //슬라이더 최대 최소값
-            masterSlider.minValue = 0;
+        masterSlider.minValue = 0;
         masterSlider.maxValue = 100;
         seSlider.minValue = 0;
         seSlider.maxValue = 100;
@@ -129,9 +129,15 @@ public class PopupOption : PopupUI
 
     public void LoadSensitivity()
     {
+        //저장된 값이 없으면 초깃값 이걸로
+        if (!PlayerPrefs.HasKey(HipSensitivityKey))
+            PlayerPrefs.SetFloat(HipSensitivityKey, 4.5f);
+        if (!PlayerPrefs.HasKey(AdsSensitivityKey))
+            PlayerPrefs.SetFloat(AdsSensitivityKey, 2.5f);
+
         // PlayerPrefs에서 감도 값 불러오기
-        cachedHipSensitivity = PlayerPrefs.GetFloat(HipSensitivityKey, 1f);
-        cachedAdsSensitivity = PlayerPrefs.GetFloat(AdsSensitivityKey, 1f);
+        cachedHipSensitivity = PlayerPrefs.GetFloat(HipSensitivityKey);
+        cachedAdsSensitivity = PlayerPrefs.GetFloat(AdsSensitivityKey);
 
         UpdateSensitivityTexts();
     }
@@ -143,7 +149,7 @@ public class PopupOption : PopupUI
 
     public void OnClickResumeBtn()
     {
-         
+
         GameManager.Instance.TogglePopup(false);
     }
 
@@ -156,8 +162,40 @@ public class PopupOption : PopupUI
 
     public static void InitSensitivity() //플레이어 생성시 호출할 함수
     {
-        cachedAdsSensitivity = PlayerPrefs.GetFloat(AdsSensitivityKey, 1f);
-        cachedHipSensitivity = PlayerPrefs.GetFloat(HipSensitivityKey, 1f);
+        if (!PlayerPrefs.HasKey(HipSensitivityKey))
+            PlayerPrefs.SetFloat(HipSensitivityKey, 4.5f);
+        if (!PlayerPrefs.HasKey(AdsSensitivityKey))
+            PlayerPrefs.SetFloat(AdsSensitivityKey, 2.5f);
+
+        cachedHipSensitivity = PlayerPrefs.GetFloat(HipSensitivityKey);
+        cachedAdsSensitivity = PlayerPrefs.GetFloat(AdsSensitivityKey);
     }
 
+    public void ResetSettings()
+    {
+        float defalutHip = 4.5f;
+        float defaultAds = 2.5f;
+        float defaultVol = 0.5f;
+
+        cachedHipSensitivity = defalutHip;
+        cachedAdsSensitivity = defaultAds;
+
+        PlayerPrefs.SetFloat(HipSensitivityKey, defalutHip);
+        PlayerPrefs.SetFloat(AdsSensitivityKey, defaultAds);
+
+        SoundManager.Instance.SetMasterVolume(defaultVol);
+        SoundManager.Instance.SetMusicVolume(defaultVol);
+        SoundManager.Instance.SetSFXVolume(defaultVol);
+
+        PlayerPrefs.SetFloat("MasterVol", defaultVol);
+        PlayerPrefs.SetFloat("SFXVol", defaultVol);
+        PlayerPrefs.SetFloat("MusicVol", defaultVol);
+
+        masterSlider.value = defaultVol * 100f;
+        seSlider.value = defaultVol * 100f;
+        bgmSlider.value = defaultVol * 100f;
+
+        UpdateSensitivityTexts();
+        UpdateSoundTexts();
+    }
 }
